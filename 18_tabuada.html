@@ -1,0 +1,22 @@
+<meta charset="UTF-8">
+
+<script>
+    function pulaLinha() {
+        document.write("<br>");
+    }
+
+    function mostra(frase) {
+        document.write(frase);
+        pulaLinha();
+    }
+
+    for (let fator = 1; fator <= 10; fator++) {
+        mostra(`Tabuada do ${fator}`);
+        for (let multiplicador = 1; multiplicador <= 10; multiplicador++) {
+            mostra(`${fator} * ` + multiplicador + " = " + fator * multiplicador);
+        }
+        pulaLinha();
+    }
+
+    mostra("Fim.");
+</script>
