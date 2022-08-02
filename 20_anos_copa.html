@@ -1,0 +1,32 @@
+<meta charset="UTF-8">
+
+<script>
+
+	function pulaLinha() {
+		document.write("<br>");
+		document.write("<br>");
+	}
+
+	function mostra(frase) {
+		document.write(frase);
+		pulaLinha();
+	}
+
+	var limite = parseInt(prompt("Entre com a data limite para verificar os anos que tiveram/terão Copa."));
+	var anoCopa = 1930;
+	const anoHoje = new Date().getFullYear();
+
+	while (anoCopa <= limite) {
+		if (anoCopa < anoHoje) {
+			mostra("Teve Copa em " + anoCopa + ".");
+		} else if (anoCopa > anoHoje) {
+			mostra("Terá Copa em " + anoCopa + ".");
+		} else {
+			mostra(`Este ano tem Copa! (${anoHoje})`);
+		}
+		anoCopa = anoCopa + 4;
+	}
+
+	mostra("Fim.");
+
+</script>
