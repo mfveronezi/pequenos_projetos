@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+<script>
+	function pulaLinha() {
+		document.write("<br>");
+		document.write("<br>");
+	}
+
+	function mostra(frase) {
+		document.write(frase);
+		pulaLinha();
+	}
+
+	function sorteia(n) {
+		return Math.round(Math.random() * n);
+	}
+
+	var numeroMinimo = 0;
+	var numeroMaximo = 10;
+	var numeroPensado = sorteia(numeroMaximo);
+	console.log(numeroPensado);
+
+	var maximoTentativas = 3
+	var chute;
+	var numerosChutados = [];
+
+	for (var tentativas = 0; tentativas < maximoTentativas; tentativas++) {
+		if (tentativas == 0) {
+			chute = parseInt(prompt(`Já pensei. Entre ${numeroMinimo} e ${numeroMaximo}, qual número você acha que é? \nLembre-se que você tem ${maximoTentativas} tentativas.`));
+		} else if (tentativas != 0 && tentativas != maximoTentativas - 1) {
+			chute = parseInt(prompt(`Entre ${numeroMinimo} e ${numeroMaximo}, qual número você acha que é? \nLembre-se que você ainda tem ${maximoTentativas - tentativas} tentativas.`));
+		} else {
+			chute = parseInt(prompt(`Entre ${numeroMinimo} e ${numeroMaximo}, qual número você acha que é? \nLembre-se que você tem apenas mais ${maximoTentativas - tentativas} tentativa.`));
+		}
+
+		numerosChutados[tentativas] = chute;
+
+		if (chute == numeroPensado) {
+			alert(`Uau! Você acertou, pois eu pensei no ${numeroPensado}.`);
+			break;
+		} else if (chute < numeroPensado) {
+			alert(`Você errou! O número que eu pensei é maior que este. \nNúmeros já chutados: ${numerosChutados}`);
+		} else {
+			alert(`Você errou! O número que eu pensei é menor que este. \nNúmeros já chutados: ${numerosChutados}`);
+		}
+	}
+
+	mostra(`Número pensado: ${numeroPensado}`);
+	mostra(`Números chutados: ${numerosChutados}`);
+	mostra('Fim');
+</script>
