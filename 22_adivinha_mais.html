@@ -1,0 +1,72 @@
+<meta charset="UTF-8">
+<p>Digite um número de 1 a 10</p>
+<input />
+
+<button>Compare com o meu segredo</button>
+
+<p>Números já digitados:</p>
+<p class="numeros-digitados"></p>
+
+<script>
+	function sorteiaNumeros(quantidade) {
+		var segredos = [];
+		var contador = 0
+
+		while (contador < quantidade) {
+			var numeroAleatorio = Math.round(Math.random() * 10);
+
+			if (numeroAleatorio !== 0) {
+				var encontrou = false;
+
+				for (var posicao = 0; posicao < segredos.length; posicao++) {
+					if (segredos[posicao] == numeroAleatorio) {
+						encontrou = true;
+						break;
+					}
+				}
+
+				if (encontrou == false) {
+					segredos.push(numeroAleatorio);
+					contador++;
+				}
+			}
+		}
+		return segredos;
+	}
+
+	function verifica() {
+		var achou = false;
+
+		for (var posicao = 0; posicao < numerosSorteados.length; posicao++) {
+			if (input.value == numerosSorteados[posicao]) {
+				alert("Você acertou!");
+				achou = true;
+				numerosDigitados.splice(0, numerosDigitados.length);
+				numerosSorteados.splice(0, numerosSorteados.length);
+				numerosSorteados = sorteiaNumeros(qtdNumerosSorteados);
+				console.log(numerosSorteados);
+				break;
+			}
+		}
+
+		if (achou == false) {
+			alert("Você errou!");
+			numerosDigitados.push(input.value);
+		}
+
+		input.value = "";
+		imprimeNumerosDigitados.innerHTML = numerosDigitados;
+		input.focus();
+	}
+
+	var numerosDigitados = [];
+	var qtdNumerosSorteados = 1;
+	var numerosSorteados = sorteiaNumeros(qtdNumerosSorteados);
+	var input = document.querySelector("input");
+	var imprimeNumerosDigitados = document.querySelector('.numeros-digitados');
+	var button = document.querySelector("button");
+
+	input.focus();
+	console.log(numerosSorteados);
+	button.onclick = verifica;
+</script>
