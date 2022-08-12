@@ -1,0 +1,55 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+	function desenhaBandeiraBrasil() {
+		let tela = document.querySelector("canvas");
+		let larguraTela = tela.scrollWidth;
+		let alturaTela = tela.scrollHeight;
+		let pincel = tela.getContext("2d");
+
+		pincel.fillStyle = "green";
+		pincel.fillRect(0, 0, larguraTela, alturaTela);
+
+		pincel.fillStyle = "yellow";
+		pincel.beginPath();
+		pincel.moveTo(larguraTela * 0.5, alturaTela * 0.125);
+		pincel.lineTo(larguraTela * 0.08333333333333333, alturaTela * 0.5);
+		pincel.lineTo(larguraTela * 0.5, alturaTela * 0.875);
+		pincel.lineTo(larguraTela * 0.91666666666666667, alturaTela * 0.5);
+		pincel.fill();
+
+		pincel.fillStyle = "darkblue";
+		pincel.beginPath();
+		pincel.arc(larguraTela * 0.5, alturaTela * 0.5, larguraTela * 0.13333333333333333, 0, 2 * Math.PI);
+		pincel.fill();
+	}
+
+	function desenhaBandeiraAlemanha() {
+		let tela = document.querySelector("canvas");
+		let larguraTela = tela.scrollWidth;
+		let alturaTela = tela.scrollHeight;
+		let pincel = tela.getContext("2d");
+
+		pincel.fillStyle = 'black';
+		pincel.fillRect(0, 0, larguraTela, alturaTela * 0.3325);
+
+		pincel.fillStyle = 'red';
+		pincel.fillRect(0, alturaTela * 0.3325, larguraTela, alturaTela * 0.3325);
+
+		pincel.fillStyle = 'yellow';
+		pincel.fillRect(0, alturaTela * 0.665, larguraTela, alturaTela * 0.3325);
+	}
+
+	function trocaBandeira() {
+		if (verificador) {
+			desenhaBandeiraBrasil();
+		} else {
+			desenhaBandeiraAlemanha();
+		}
+		verificador = !verificador;
+	}
+
+	let verificador = true;
+
+	setInterval(trocaBandeira, 1500);
+</script>
