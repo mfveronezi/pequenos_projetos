@@ -1,0 +1,68 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+	function pintaTelaToda(cor) {
+		let tela = document.querySelector("canvas");
+		let pincel = tela.getContext("2d");
+		let larguraTela = tela.scrollWidth;
+		let alturaTela = tela.scrollHeight;
+		pincel.fillStyle = cor;
+		pincel.fillRect(0, 0, larguraTela, alturaTela);
+	}
+
+	function desenhaRetangulo(xInicial, yInicial, larguraRet, alturaRet, cor) {
+		let tela = document.querySelector("canvas");
+		let pincel = tela.getContext("2d");
+		pincel.fillStyle = cor;
+		pincel.fillRect(xInicial, yInicial, larguraRet, alturaRet);
+		pincel.fillStyle = "black";
+		pincel.strokeRect(xInicial, yInicial, larguraRet, alturaRet);
+	}
+
+	function desenhaTexto(texto, x, y) {
+		let tela = document.querySelector("canvas");
+		let pincel = tela.getContext("2d");
+		pincel.font = "15px Georgia";
+		pincel.fillStyle = "black"
+		pincel.fillText(texto, x, y);
+	}
+
+	function desenhaGrafico(x, y, serie, cores, texto) {
+		//titulo do grafico
+		desenhaTexto(texto, (x + 10), (y - 5));
+
+		//grafico de barras
+		let somaAltura = 0
+		for(let contador = 0; somaAltura < 100; contador++) {
+			desenhaRetangulo(x, (y + somaAltura), 50, serie[contador], cores[contador]);
+			somaAltura += serie[contador];
+		}
+
+		//legenda
+		let alturaLegenda = somaAltura + 10;
+		for(let contador = 0; contador < (Math.round(serie.length)/2); contador++) {
+			desenhaRetangulo(x, (y + alturaLegenda), 10, 10, cores[contador]);
+			desenhaTexto((serie[contador] + "% " + serie[contador + Math.round(serie.length)/2]), (x + 15), (y + alturaLegenda + 10));
+			alturaLegenda += 20;
+		}
+	}
+
+	let porcentagem2015 = [50, 25, 15, 5, 5];
+	let itens2015 = ["Chrome", "Firefox", "Safari", "IE", "Outros"];
+	let serie2015 = porcentagem2015.concat(itens2015);
+
+	let porcentagem2016 = [65, 20, 13, 2];
+	let itens2016 = ["Chrome", "Firefox", "Safari", "Outros"];
+	let serie2016 = porcentagem2016.concat(itens2016);
+
+	let porcentagem2017 = [30, 23, 17, 11, 10, 9];
+	let itens2017 = ["Chrome", "Firefox", "Safari", "IE", "Opera", "Outros"];
+	let serie2017 = porcentagem2017.concat(itens2017);
+
+	let cores = ["blue", "green", "yellow", "red", "pink", "brown"];
+
+	pintaTelaToda("lightgrey");
+	desenhaGrafico(50, 50, serie2015, cores, "2015");
+	desenhaGrafico(200, 50, serie2016, cores, "2016");
+	desenhaGrafico(350, 50, serie2017, cores, "2017");
+</script>
