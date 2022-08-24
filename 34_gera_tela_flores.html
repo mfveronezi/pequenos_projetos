@@ -1,0 +1,60 @@
+<canvas width="1350" height="600"></canvas>
+
+<script>
+    function gerarCor(opacidade = 1) {
+        let r = Math.random() * 255;
+        let g = Math.random() * 255;
+        let b = Math.random() * 255;
+        return `rgba(${r}, ${g}, ${b}, ${opacidade})`;
+    }
+
+    function desenhaCirculo(x, y, raio, cor) {
+        pincel.fillStyle = cor;
+        pincel.beginPath();
+        pincel.arc(x, y, raio, 0, 2*3.14);
+        pincel.fill();
+    }
+
+    function desenhaFlor(x, y, raio, corPetala, corMiolo) {
+        desenhaCirculo((x - 2 * raio), y, raio, corPetala);
+        desenhaCirculo((x - 2 * (raio/2)), (y - 2 * (raio/2)), raio/1.05, corPetala);
+        desenhaCirculo((x - 2 * (raio/2)), (y + 2 * (raio/2)), raio/1.05, corPetala);
+        desenhaCirculo(x, (y - 2 * raio), raio, corPetala);    
+        desenhaCirculo(x, (y + 2 * raio), raio, corPetala);
+        desenhaCirculo((x + 2 * (raio/2)), (y - 2 * (raio/2)), raio/1.05, corPetala);
+        desenhaCirculo((x + 2 * (raio/2)), (y + 2 * (raio/2)), raio/1.05, corPetala);
+        desenhaCirculo((x + 2 * raio), y, raio, corPetala);
+        desenhaCirculo(x, y, raio, corMiolo);
+    }
+
+    function geraFileiraFlores(x, y, raio) {
+        while(x <= larguraTela) {
+            desenhaFlor(x, y, raio, gerarCor(), gerarCor());
+            x = x + (6 * raio);
+        }
+    }
+
+    function geraTelaFlores(raio) {
+        x = 0;
+        y = 0;
+        while (y <= alturaTela) {
+            if(x == 0) {
+                geraFileiraFlores(x, y, raio);
+                x = x + (3 * raio);    
+            } else {
+                geraFileiraFlores(x, y, raio);
+                x = x - (3 * raio);
+            }
+            y = y + (4 * raio);
+        }
+    }
+
+    let tela = document.querySelector('canvas');
+    let larguraTela = tela.scrollWidth;
+    let alturaTela = tela.scrollHeight;
+    let pincel = tela.getContext('2d');
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, larguraTela, alturaTela);
+
+    geraTelaFlores(10);
+</script>
