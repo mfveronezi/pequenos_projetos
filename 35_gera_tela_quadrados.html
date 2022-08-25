@@ -1,0 +1,43 @@
+<canvas width="1350" height="600"></canvas>
+
+<script>
+	function desenhaQuadrado(xInicial, yInicial, cor) {
+		pincel.fillStyle = cor;
+		pincel.fillRect(xInicial, yInicial, xFinal, yFinal);
+		pincel.fillStroke = "black";
+		pincel.strokeRect(xInicial, yInicial, xFinal, yFinal);
+	}
+
+	function gerarCor(opacidade = 1) {
+		let r = Math.random() * 255;
+		let g = Math.random() * 255;
+		let b = Math.random() * 255;
+
+		return `rgba(${r}, ${g}, ${b}, ${opacidade})`;
+	}
+
+	let tela = document.querySelector("canvas");
+	let larguraTela = tela.scrollWidth;
+	let alturaTela = tela.scrollHeight;
+	let pincel = tela.getContext("2d");
+
+	pincel.fillStyle = "lightgrey";
+	pincel.fillRect(0, 0, larguraTela, alturaTela);
+
+	let xInicial = 0;
+	let yInicial = 0;
+	let xFinal = 30;
+	let yFinal = 30;
+
+	while (yInicial < alturaTela) {
+		if (xInicial < larguraTela) {
+			while (xInicial < larguraTela) {
+				desenhaQuadrado(xInicial, yInicial, gerarCor());
+				xInicial = xInicial + xFinal;
+			}
+		} else {
+			xInicial = 0;
+			yInicial = yInicial + yFinal;
+		}
+	}
+</script>
