@@ -1,0 +1,57 @@
+<p>Use as setas do teclado para mover a bolinha</p>
+
+<canvas width="600" height="400"></canvas>
+
+<script>
+	let tela = document.querySelector("canvas");
+	let larguraTela = tela.scrollWidth;
+	let alturaTela = tela.scrollHeight;
+	let pincel = tela.getContext("2d");
+
+	pincel.fillStyle = "lightgrey";
+	pincel.fillRect(0, 0, larguraTela, alturaTela);
+
+	let x = 20;
+	let y = 20;
+
+	//códigos das teclas do teclado (valores específicos)
+	let setaEsquerda = 37;
+	let setaCima = 38;
+	let setaDireita = 39;
+	let setaBaixo = 40;
+
+	//taxa de incremento
+	let taxa = 10;
+
+	function desenhaCirculo(x, y, raio) {
+		pincel.fillStyle = "blue";
+		pincel.beginPath();
+		pincel.arc(x, y, raio, 0, 2 * Math.PI);
+		pincel.fill();
+	}
+
+	function limpaTela() {
+		pincel.clearRect(0, 0, larguraTela, alturaTela);
+	}
+
+	function atualizaTela() {
+		limpaTela();
+		desenhaCirculo(x, y, 10);
+	}
+
+	setInterval(atualizaTela, 20);
+
+	function leDoTeclado(evento) {
+		if (evento.keyCode == setaDireita) {
+			x = x + taxa;
+		} else if (evento.keyCode == setaEsquerda) {
+			x = x - taxa;
+		} else if (evento.keyCode == setaCima) {
+			y = y - taxa;
+		} else if (evento.keyCode == setaBaixo) {
+			y = y + taxa;
+		}
+	}
+
+	document.onkeydown = leDoTeclado;
+</script>
